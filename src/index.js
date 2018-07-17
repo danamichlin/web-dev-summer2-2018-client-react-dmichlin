@@ -5,7 +5,8 @@ import HelloWorld from './hello'
 //import '../node_modules/font-awesome/css/font-awesome.min.css';
 import LessonTabs from './LessonTabs'
 import TopicPills from './TopicPills'
-
+import {BrowserRouter as Router}
+    from 'react-router-dom'
 
 import CourseCard from './components/CourseCard'
 import CourseList from "./containers/CourseList";

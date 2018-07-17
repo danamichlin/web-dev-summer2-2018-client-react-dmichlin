@@ -1,5 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
+
 import CourseService from '../services/CourseService';
+
 
 class CourseRow extends React.Component {
     constructor(props) {
@@ -15,12 +18,18 @@ class CourseRow extends React.Component {
         return (
                 <tbody>
                     <tr>
-                        <td>{this.props.course.title}</td>
+                        <td>
+                        {/*<td><Link to={`/course/${this.props.course.id}/edit`}>*/}
+                            {/*{this.props.course.title}*/}
+                        {/*</Link>*/}
+                            {this.props.course.title}</td>
                         <td>{this.props.course.created}</td>
                         <td>{this.props.course.modified}</td>
                         <td id={this.props.course.id}>
-                            <button onClick={() => this.props.deleteCourse(this.props.course.id)}>Delete</button>
-                            <button>Update</button>
+                            <button onClick={() => this.props.deleteCourse(
+                                this.props.course.id)}>Delete</button>
+                            <button onClick={() => this.props.editCourse(
+                                this.props.course.id)}>Edit</button>
                         </td>
                     </tr>
             </tbody>
