@@ -1,6 +1,6 @@
 import React from 'react'
-//import ModuleList from './ModuleList'
-//import LessonTabs from './LessonTabs'
+import ModuleList from './ModuleList'
+import LessonTabs from '../components/LessonTabs'
 
 class CourseEditor extends React.Component {
 
@@ -15,6 +15,8 @@ class CourseEditor extends React.Component {
         (this.props.match.params.courseId);
     }
 
+
+
     selectCourse(courseId) {
         this.setState({courseId: courseId});
     }
@@ -24,7 +26,7 @@ class CourseEditor extends React.Component {
             <h2>Editing course: {this.state.courseId}</h2>
             <div className="row">
                 <div className="col-4">
-                    <ModuleList courseId={this.state.courseId}/>
+                    <ModuleList2 courseId={this.state.courseId}/>
                 </div>
                 <div className="col-8">
                     <LessonTabs/>

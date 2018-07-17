@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom'
 import HelloWorld from './hello'
 //import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import '../node_modules/font-awesome/css/font-awesome.min.css';
-import LessonTabs from './LessonTabs'
+import LessonTabs from './components/LessonTabs'
 import TopicPills from './TopicPills'
 import {BrowserRouter as Router}
     from 'react-router-dom'
 
 import CourseCard from './components/CourseCard'
 import CourseList from "./containers/CourseList";
-import ModuleList from "./components/ModuleList";
+import ModuleList from "./containers/ModuleList";
+import CourseManager from './containers/CourseManager';
 
 class ModuleListItem extends React.Component {
     render() {
@@ -56,7 +57,7 @@ class WhiteBoard extends React.Component {
                 {/*<ModuleList/>*/}
 
                 <div className="card-deck">
-                    <CourseList/>
+                    <CourseManager/>
                 </div>
             </div>
         )

@@ -11,7 +11,7 @@ class CourseList extends React.Component {
     constructor() {
         super();
         this.courseService = CourseService.instance;
-        this.state = {course: {title: ''},
+        this.state = {course: {id: 0, title: ''},
                         courses: []};
 
 
@@ -23,10 +23,15 @@ class CourseList extends React.Component {
         this.deleteCourse = this.deleteCourse.bind(this);
         this.editCourse = this.editCourse.bind(this);
         this.findAllCourses = this.findAllCourses.bind(this);
+        this.putCourseInForm = this.putCourseInForm.bind(this);
     }
 
     // lifecycle function of react
     componentDidMount() {
+        this.findAllCourses();
+    }
+
+    componentWillReceiveProps() {
         this.findAllCourses();
     }
 
@@ -49,7 +54,7 @@ class CourseList extends React.Component {
 
     //TODO
     putCourseInForm(course) {
-       // this.setState({course: {title: this.state.course.title}});
+        this.setState({course: {title: this.state.course.title}});
     }
 
     //TODO
@@ -58,7 +63,8 @@ class CourseList extends React.Component {
     }
 
     titleChanged(event) {
-        this.setState({course: {title: event.target.value}});
+        this.setState({course: {id: this.state.course.id , title: event.target.value}});
+        console.log(this.state)
     }
 
     //TODO check
@@ -77,8 +83,12 @@ class CourseList extends React.Component {
 
     //TODO
     updateCourse(event) {
-        this.setState({course: {title: event.target.value}});
-        //console.log(this.state.course.title);
+        console.log(this.state);
+        //this.setState({course: {id: this.state.course.id, title: event.target.value}});
+        this.courseService.updateCourse(this.state.course.id, this.state.course)
+            .then(this.findAllCourses)
+            .then(this.clearCourseFormInputs);
+
     }
 
 
@@ -88,9 +98,12 @@ class CourseList extends React.Component {
             .then(this.findAllCourses);
     }
 
-    editCourse(courseId) {
-        this.courseService.findCourseById(courseId)
-            .then(this.putCourseInForm);
+    editCourse(course) {
+
+        this.setState({course: course});
+        console.log(this.state);
+        // this.courseService.findCourseById(course)
+        //     .then(this.putCourseInForm(this.state.course));
     }
 
     findAllCourses() {
@@ -110,7 +123,7 @@ class CourseList extends React.Component {
                             <th><span>Title</span></th>
                             <th><span>Date Created</span></th>
                             <th><span>Date Modified</span></th>
-                            <th><span>Course Details</span></th>
+                            <th><span>Actions</span></th>
 
                         </tr>
                     <tr>

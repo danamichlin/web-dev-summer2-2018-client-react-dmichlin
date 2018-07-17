@@ -48,8 +48,9 @@ class CourseService {
             });
     }
 
-    updateCourse(courseId, courseObjStr) {
+    updateCourse(courseId, course) {
         var url = COURSE_API_URL + "/" + courseId;
+        var courseObjStr = JSON.stringify()
         return fetch(url, {
             method: 'Put',
             body: courseObjStr,

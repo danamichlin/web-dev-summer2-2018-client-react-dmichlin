@@ -19,17 +19,16 @@ class CourseRow extends React.Component {
                 <tbody>
                     <tr>
                         <td>
-                        {/*<td><Link to={`/course/${this.props.course.id}/edit`}>*/}
-                            {/*{this.props.course.title}*/}
-                        {/*</Link>*/}
-                            {this.props.course.title}</td>
+                        <Link to={`/course/${this.props.course.id}/edit`}>
+                            {this.props.course.title}
+                        </Link></td>
                         <td>{this.props.course.created}</td>
                         <td>{this.props.course.modified}</td>
                         <td id={this.props.course.id}>
                             <button onClick={() => this.props.deleteCourse(
                                 this.props.course.id)}>Delete</button>
                             <button onClick={() => this.props.editCourse(
-                                this.props.course.id)}>Edit</button>
+                                this.props.course)}>Edit</button>
                         </td>
                     </tr>
             </tbody>
