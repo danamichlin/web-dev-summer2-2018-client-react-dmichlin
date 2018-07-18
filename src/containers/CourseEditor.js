@@ -1,5 +1,5 @@
 import React from 'react'
-import ModuleList from './ModuleList'
+import ModuleList2 from './ModuleList2'
 import LessonTabs from '../components/LessonTabs'
 
 class CourseEditor extends React.Component {

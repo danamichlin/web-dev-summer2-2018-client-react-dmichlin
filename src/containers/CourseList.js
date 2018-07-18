@@ -2,10 +2,6 @@ import React from 'react';
 import CourseRow from "../components/CourseRow";
 import CourseService from '../services/CourseService';
 
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-
-
-
 class CourseList extends React.Component {
 
     constructor() {
@@ -117,20 +113,21 @@ class CourseList extends React.Component {
         return (
             <div>
                 <h2>Course List</h2>
-                <table class="table-bordered table-striped">
+                <table className="table-bordered table-striped">
                     <thead>
                         <tr>
                             <th><span>Title</span></th>
                             <th><span>Date Created</span></th>
                             <th><span>Date Modified</span></th>
                             <th><span>Actions</span></th>
-
+                            {/* <th><ModuleList2*/}
+                            {/*     courseId={this.state.courseId}/></th>*/}
                         </tr>
                     <tr>
-                        <input id="titleFld"
+                        <th><input id="titleFld"
                                placeholder="cs101"
                                onChange={this.titleChanged}
-                               value={this.state.course.title}/>
+                               value={this.state.course.title}/>  </th>
                         <th></th>
                         <th></th>
                         <th><button onClick={this.createCourse}>Create</button>

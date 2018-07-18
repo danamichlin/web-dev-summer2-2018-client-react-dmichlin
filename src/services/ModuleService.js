@@ -4,7 +4,7 @@ let _singleton = Symbol();
 //const COURSE_API_URL =
 //    'https://intense-journey-34677.herokuapp.com/';
 
-const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module'
+const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module/MID'
 
 class ModuleService {
 
@@ -30,15 +30,20 @@ class ModuleService {
     }
 
     deleteModule(moduleId) {
-        return fetch(MODULE_API_URL + "/" + moduleId, {method: 'delete'})
+        return fetch(MODULE_API_URL.replace
+        ('MID', moduleId), {
+            method: 'delete'
+        });
     }
 
-    findAllModules() {
-        return fetch(MODULE_API_URL)
-            .then(function(response){
+
+    findAllModulesForCourse(courseId) {
+        return fetch(MODULE_API_URL.replace('COURSE_ID', courseId))
+            .then(function (response) {
                 return response.json();
-            });
+            })
     }
+
 
     findModuleById(moduleId) {
         return fetch(MODULE_API_URL + "/" + moduleId)

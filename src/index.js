@@ -10,7 +10,7 @@ import {BrowserRouter as Router}
 
 import CourseCard from './components/CourseCard'
 import CourseList from "./containers/CourseList";
-import ModuleList from "./containers/ModuleList";
+//import ModuleList2 from "./containers/ModuleList2";
 import CourseManager from './containers/CourseManager';
 
 class ModuleListItem extends React.Component {
