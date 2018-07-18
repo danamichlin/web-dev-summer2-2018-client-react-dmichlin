@@ -1,6 +1,10 @@
 import React from 'react';
 import ModuleService from '../services/ModuleService';
-import ModuleListItem from "../components/ModuleListItem";
+import ModuleListItem from '../components/ModuleListItem';
+import ModuleEditor from './ModuleEditor';
+
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
 
 class ModuleList2 extends React.Component {
 
@@ -80,19 +84,27 @@ class ModuleList2 extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Modules</h1>
-                <h4>Modules for Course:
-                    {this.state.courseId}</h4>
-                //TODO
-                {/* check why this.state.courseId does not give courseId*/}
-                <input onClick={this.createModule}
-                       value={this.state.module.title}
-                       placeholder="New Module"
-                       onChange={this.setModuleTitle}/>
-                <button>Create</button>
-                {this.renderModules()}
+            <Router>
+            <div className="row">
+                <div className="col-4">
+                    <h1>Modules</h1>
+                    <h4>Modules for Course:
+                        {this.state.courseId}</h4>
+                    //TODO
+                    {/* check why this.state.courseId does not give courseId*/}
+                    <input onClick={this.createModule}
+                           value={this.state.module.title}
+                           placeholder="New Module"
+                           onChange={this.setModuleTitle}/>
+                    <button>Create</button>
+                    {this.renderModules()}
+                </div>
+                <div className="col-8">
+                    <Route path="/course/:courseId/module/:moduleId"
+                           component={ModuleEditor}/>
+                </div>
             </div>
+            </Router>
         )}
 }
 

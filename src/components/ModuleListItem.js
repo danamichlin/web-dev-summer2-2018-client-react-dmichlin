@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 class ModuleListItem extends React.Component {
 
@@ -11,7 +12,12 @@ class ModuleListItem extends React.Component {
         return (
             <div>
                 <li>Module Title</li>
-                <li>{this.props.module.title}
+                <li><Link to={`/course/
+                        ${this.props.courseId}
+                        /module/${this.props.module.id}`}>
+                        {this.props.module.title}
+                    </Link>
+
                     <button onClick={() =>
                     {this.props.delete
                     (this.props.module.id)}}>
