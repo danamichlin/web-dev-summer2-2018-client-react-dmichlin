@@ -1,30 +1,59 @@
 import React from 'react'
 
-class LessonTabs extends React.Component {
+export default class LessonTabs extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedLessonIndex: 0
+        }
+    }
+    selectLesson = (index) => {
+        this.setState({
+                          selectedLessonIndex: index
+                      })
+    }
+
+    deleteLesson = (index) => {
+      alert ("delete lesson " + index);
+    }
+
+    addLesson = () => {
+        alert ("add lesson");
+    }
+
+
+
   render() {
-    return(
-      <div>
-        <h3>Lesson Tabs</h3>
+    if (!this.props.module) {
+      return <div>Please select Module</div>
+    }
+    else {
+        return (
+            <div>
+              <h7>Lesson Tabs {this.props.module.lessons.length}</h7>
+              <ul className="nav nav-tabs">
+                  {this.props.module.lessons.map(
+                      (lesson, i) => {
+                          return (
+                              <li className="nav-item" onClick={() => this.selectLesson(i)}
+                                  key={i}>
+                                <span>
+                                  <a className="nav-link" href="#">{lesson.title}</a>&nbsp;&nbsp;
+                                  <a href="#" onClick={() => this.deleteLesson(i)}>x</a>
+                                </span>
+                              </li>
 
-        <ul className="nav nav-tabs">
-          <li className="nav-item">
-            <a className="nav-link active" href="#">Active</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">Link</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">Link</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" href="#">Disabled</a>
-          </li>
-        </ul>
-
-
-      </div>
-    )
+                          )
+                      }
+                  )}
+                  <li>
+                    <a href="#" onClick={() => this.addLesson()}>+</a>
+                  </li>
+              </ul>
+                {this.state.selectedLessonIndex}
+                {/*<TopicPills lesson={this.props.module.lessons[this.state.selectedLessonIndex]}/>*/}
+            </div>
+        )
+    }
   }
 }
-
-export default LessonTabs;

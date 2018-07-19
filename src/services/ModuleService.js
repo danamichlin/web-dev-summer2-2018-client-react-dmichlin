@@ -4,7 +4,8 @@ let _singleton = Symbol();
 //const COURSE_API_URL =
 //    'https://intense-journey-34677.herokuapp.com/';
 
-const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module/MID'
+const URL = 'http://localhost:8080';
+const MODULE_API_URL = 'http://localhost:8080/api/course/CID/module'
 
 class ModuleService {
 
@@ -21,7 +22,9 @@ class ModuleService {
 
 
     createModule(courseId, module) {
-        return fetch(MODULE_API_URL.replace('CID', courseId), {
+        console.log(courseId);
+        var url = "http://localhost:8080/api/course/" + courseId + '/module';
+        return fetch(url, {
             body: JSON.stringify(module),
             headers: { 'Content-Type': 'application/json' },
             method: 'POST'
@@ -30,15 +33,17 @@ class ModuleService {
     }
 
     deleteModule(moduleId) {
-        return fetch(MODULE_API_URL.replace
-        ('MID', moduleId), {
+        console.log(moduleId);
+        var url = 'http://localhost:8080/api/module/' + moduleId;
+        return fetch(url, {
             method: 'delete'
         });
     }
 
 
     findAllModulesForCourse(courseId) {
-        return fetch(MODULE_API_URL.replace('COURSE_ID', courseId))
+        var url = 'http://localhost:8080/api/course/' + courseId + '/module';
+        return fetch(url)
             .then(function (response) {
                 return response.json();
             })
@@ -53,7 +58,7 @@ class ModuleService {
     }
 
     updateModule(moduleId, module) {
-        var url = MODULE_API_URL + "/" + moduleId;
+        var url = URL + '/api/module/' + moduleId;
         return fetch(url, {
             method: 'Put',
             body: JSON.stringify(module),

@@ -8,11 +8,7 @@ class CourseRow extends React.Component {
     constructor(props) {
         super(props);
         this.courseService = CourseService.instance;
-
-
     }
-
-
 
     render() {
         return (
