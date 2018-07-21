@@ -1,6 +1,7 @@
 import React from 'react'
 import LessonTab from '../components/LessonTab'
 import LessonService from '../services/LessonService'
+import LessonAddition from '../components/LessonAddition'
 
 export default class LessonTabs extends React.Component {
     constructor(props) {
@@ -12,18 +13,22 @@ export default class LessonTabs extends React.Component {
         this.lessonService = LessonService.instance;
 
         this.deleteLesson = this.deleteLesson.bind(this);
+        this.createLesson = this.createLesson.bind(this);
     }
 
+
+    createLesson(title) {
+        var lesson = {title: title,
+            moduleId: this.props.module.id};
+        this.lessonService.createLesson(this.props.courseId, this.props.module.id, lesson);
+        this.props.module.lessons.push(lesson);
+        this.forceUpdate();
+    }
 
     selectLesson = (index) => {
         this.setState({
                           selectedLessonIndex: index
                       })
-    }
-
-
-    addLesson = () => {
-        alert ("add lesson");
     }
 
     deleteLesson(lessonId) {
@@ -36,10 +41,10 @@ export default class LessonTabs extends React.Component {
         }
         this.forceUpdate();
     }
-            // .then(() => {
-            //     this.findAllLessonsForModule
-            //     (this.props.courseId)
-            // });
+
+
+
+
 
 
   render() {
@@ -61,10 +66,10 @@ export default class LessonTabs extends React.Component {
                                   <a className="nav-link" href="#">{lesson.title}</a>&nbsp;&nbsp;
                                 </span>
                               </LessonTab>
-
                           )
                       }
                   )}
+                  <LessonAddition createLesson={this.createLesson}/>
               </ul>
                 {this.state.selectedLessonIndex}
                 {/*<TopicPills lesson={this.props.module.lessons[this.state.selectedLessonIndex]}/>*/}

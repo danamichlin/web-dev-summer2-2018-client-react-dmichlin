@@ -45,7 +45,8 @@ class CourseEditor extends React.Component {
 
                 </div>
                 <div className="col-8">
-                    <LessonTabs module={this.state.module}/>
+                    <LessonTabs module={this.state.module}
+                                courseId={this.props.match.params.courseId}/>
                 </div>
             </div>
         </div>
