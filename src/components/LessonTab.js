@@ -1,4 +1,5 @@
 import React from 'react';
+import LessonService from '../services/LessonService'
 import { Link } from 'react-router-dom'
 
 class LessonTab extends React.Component {
@@ -8,6 +9,8 @@ class LessonTab extends React.Component {
         this.state = {
             editMode: false,
             title: this.props.lesson.title}
+
+        this.lessonService = LessonService.instance;
 
         this.setEditMode = this.setEditMode.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
@@ -26,7 +29,9 @@ class LessonTab extends React.Component {
 
 
     updateLesson() {
-        
+        this.props.lesson.title = this.state.title;
+        this.lessonService.updateLesson(this.props.lesson.id, this.props.lesson);
+        this.setEditMode(false);
     }
 
 
@@ -49,7 +54,7 @@ class LessonTab extends React.Component {
                         {/*// onClick={() => this.props.onLessonSelected(this.props.lesson)}>*/}
                         {this.state.title}</a>
                     <button onClick={() => {
-                        this.props.delete(this.props.lesson.id)
+                        this.props.deleteLesson(this.props.lesson.id)
                     }}>
                         DELETE
                     </button>

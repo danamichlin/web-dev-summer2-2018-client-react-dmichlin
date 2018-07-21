@@ -1,5 +1,6 @@
 import React from 'react'
 import LessonTab from '../components/LessonTab'
+import LessonService from '../services/LessonService'
 
 export default class LessonTabs extends React.Component {
     constructor(props) {
@@ -7,21 +8,38 @@ export default class LessonTabs extends React.Component {
         this.state = {
             selectedLessonIndex: 0
         }
+
+        this.lessonService = LessonService.instance;
+
+        this.deleteLesson = this.deleteLesson.bind(this);
     }
+
+
     selectLesson = (index) => {
         this.setState({
                           selectedLessonIndex: index
                       })
     }
 
-    deleteLesson = (index) => {
-      alert ("delete lesson " + index);
-    }
 
     addLesson = () => {
         alert ("add lesson");
     }
 
+    deleteLesson(lessonId) {
+        this.lessonService.deleteLesson(lessonId);
+        for (var i = 0; i < this.props.module.lessons.length; i++) {
+            if (this.props.module.lessons[i].id == lessonId) {
+                this.props.module.lessons.splice(i, 1);
+                break;
+            }
+        }
+        this.forceUpdate();
+    }
+            // .then(() => {
+            //     this.findAllLessonsForModule
+            //     (this.props.courseId)
+            // });
 
 
   render() {
@@ -38,7 +56,7 @@ export default class LessonTabs extends React.Component {
                           return (
                               <LessonTab lesson={lesson}
                                          onClick={() => this.selectLesson(i)}
-                                  key={i}>
+                                  key={lesson.id} deleteLesson={this.deleteLesson}>
                                 <span>
                                   <a className="nav-link" href="#">{lesson.title}</a>&nbsp;&nbsp;
                                 </span>
