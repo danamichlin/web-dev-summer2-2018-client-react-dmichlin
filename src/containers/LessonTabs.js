@@ -1,4 +1,5 @@
 import React from 'react'
+import LessonTab from '../components/LessonTab'
 
 export default class LessonTabs extends React.Component {
     constructor(props) {
@@ -35,20 +36,17 @@ export default class LessonTabs extends React.Component {
                   {this.props.module.lessons.map(
                       (lesson, i) => {
                           return (
-                              <li className="nav-item" onClick={() => this.selectLesson(i)}
+                              <LessonTab lesson={lesson}
+                                         onClick={() => this.selectLesson(i)}
                                   key={i}>
                                 <span>
                                   <a className="nav-link" href="#">{lesson.title}</a>&nbsp;&nbsp;
-                                  <a href="#" onClick={() => this.deleteLesson(i)}>x</a>
                                 </span>
-                              </li>
+                              </LessonTab>
 
                           )
                       }
                   )}
-                  <li>
-                    <a href="#" onClick={() => this.addLesson()}>+</a>
-                  </li>
               </ul>
                 {this.state.selectedLessonIndex}
                 {/*<TopicPills lesson={this.props.module.lessons[this.state.selectedLessonIndex]}/>*/}
