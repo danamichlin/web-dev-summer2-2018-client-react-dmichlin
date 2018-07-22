@@ -112,15 +112,15 @@ class ModuleList2 extends React.Component {
     }
 
     deleteModule(moduleId) {
-        this.moduleService
-            .deleteModule(moduleId)
-            .then(() => {
-                this.findAllModulesForCourse
-                (this.props.courseId)
-            });
-
+        if (window.confirm("Are you sure you want to delete this module?")) {
+            this.moduleService
+                .deleteModule(moduleId)
+                .then(() => {
+                    this.findAllModulesForCourse
+                    (this.props.courseId)
+                });
+        }
     }
-
 
     findAllModulesForCourse(courseId) {
         this.moduleService
@@ -140,45 +140,37 @@ class ModuleList2 extends React.Component {
             return <ModuleListItem module={module} key={module.id} courseId={this.state.courseId}
                                    delete={this.deleteModule}
                                    edit={this.editModule}
-                                    onModuleSelected={this.props.onModuleSelected}/>
+                                   onModuleSelected={this.props.onModuleSelected}
+                                   selected={this.props.selectedModule == module}/>
         });
-        return (<ul>{modules}</ul>)
-
-
-        // for(var m in modules){
-        //     moduleList.push(<ModuleListItem module={m} key={m.id}
-        //                            delete={this.deleteModule}/>)
-        // }
-        // // let modules =
-        // //     this.state.modules.map((module) => {
-        // //         return <ModuleListItem module={module} key={module.id}
-        // //                                delete={this.deleteModule}/>
-        // //     });
-        // // return (<ul>{modules}</ul>)
-        // return moduleList;
+        return (<tbody>{modules}</tbody>)
     }
 
     render() {
         return (
             <Router>
-            <div className="row">
-                <div className="col-4">
-                    <h1>Modules List</h1>
+            <div>
+                <table className="table table-bordered table-striped table-responsive-md"
+                       align='center'>
+                    <tr>
+                        <td>
+                            <input value={this.state.module.title}
+                                   placeholder="New Module"
+                                   onChange={this.setModuleAttributes}/>
+                        </td>
+                        <td>
+                            <button onClick={this.createModule}>
+                                <i className="fa fa-plus"/>
+                            </button>
+                            <button onClick={this.updateModule}>
+                                <i className="fa fa-check"/>
+                            </button>
+                        </td>
+                    </tr>
+                        {this.renderModules()}
 
-                    <h4>Modules for Course:
-                        {this.props.courseId}</h4>
-                    //TODO
-                    {/* check why this.state.courseId does not give courseId*/}
-                    <input value={this.state.module.title}
-                           placeholder="New Module"
-                           onChange={this.setModuleAttributes}/>
-                    <button onClick={this.createModule}>Create</button>
-                    <button onClick={this.updateModule}>Update</button>
-                    {this.renderModules()}
-
-
-                </div>
-                <div className="col-8">
+                </table>
+                <div>
                     <Route path="/course/:courseId/module/:moduleId"
                            component={ModuleEditor}/>
                 </div>

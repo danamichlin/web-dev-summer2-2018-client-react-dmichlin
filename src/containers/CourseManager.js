@@ -8,7 +8,8 @@ class CourseManager extends React.Component {
     render() {
         return (
             <Router>
-                <root>
+                <div>
+                {/*<root>*/}
                     <Route exact path="/course/list"
                            component={CourseList}>
                     </Route>
@@ -17,7 +18,8 @@ class CourseManager extends React.Component {
                     </Route>
                     {/*<Route exact path="/course/:courseId/module/:moduleId"*/}
                            {/*component={ModuleEditor}/>*/}
-                </root>
+                {/*</root>*/}
+                </div>
             </Router>
         )};
 }

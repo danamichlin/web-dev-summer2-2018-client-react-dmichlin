@@ -53,7 +53,7 @@ class CourseList extends React.Component {
         this.setState({course: {title: this.state.course.title}});
     }
 
-    //TODO
+
     clearCourseFormInputs() {
         this.setState({course: {title: ''}});
     }
@@ -63,7 +63,7 @@ class CourseList extends React.Component {
         console.log(this.state)
     }
 
-    //TODO check
+
     createCourse() {
       var c = this.state.course;
         this.courseService.createCourse(c)
@@ -77,7 +77,6 @@ class CourseList extends React.Component {
             .then(this.clearCourseFormInputs);
     }
 
-    //TODO
     updateCourse(event) {
         console.log(this.state);
         //this.setState({course: {id: this.state.course.id, title: event.target.value}});
@@ -90,8 +89,10 @@ class CourseList extends React.Component {
 
 
     deleteCourse(courseId) {
-        this.courseService.deleteCourse(courseId)
-            .then(this.findAllCourses);
+        if (window.confirm("Are you sure you want to delete this course?")) {
+            this.courseService.deleteCourse(courseId)
+                .then(this.findAllCourses);
+        }
     }
 
     editCourse(course) {
@@ -113,7 +114,8 @@ class CourseList extends React.Component {
         return (
             <div>
                 <h2>Course List</h2>
-                <table className="table-bordered table-striped">
+                <table className="table table-bordered table-striped table-responsive-md"
+                    align='center'>
                     <thead>
                         <tr>
                             <th><span>Title</span></th>
@@ -130,12 +132,18 @@ class CourseList extends React.Component {
                                value={this.state.course.title}/>  </th>
                         <th></th>
                         <th></th>
-                        <th><button onClick={this.createCourse}>Create</button>
-                            <button onClick={this.updateCourse}>Update</button>
+                        <th><button onClick={this.createCourse}>
+                            <i className="fa fa-plus"/>
+                        </button>
+                            <button onClick={this.updateCourse}>
+                                <i className="fa fa-check"/>
+                            </button>
                         </th>
                     </tr>
                     </thead>
-                    {this.courseRows()}
+                    <tbody>
+                        {this.courseRows()}
+                    </tbody>
                     {/*<Route path={'/api/course/${this.props.course.id}/module'}*/}
                 </table>
 

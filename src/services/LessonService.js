@@ -22,7 +22,6 @@ class LessonService {
 
 
     createLesson(courseId, moduleId, lesson) {
-        console.log(courseId);
         var url = "http://localhost:8080/api/course/" + courseId + '/module/' + moduleId + '/lesson';
         return fetch(url, {
             body: JSON.stringify(lesson),

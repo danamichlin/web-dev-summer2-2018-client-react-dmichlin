@@ -7,25 +7,25 @@ class ModuleListItem extends React.Component {
         super(props);
     }
 
-
     render() {
         return (
-            <div>
-                <li>Module Title</li>
-                <li>
-                {/*<li><Link to={`/course/${this.props.courseId}/module/${this.props.module.id}`}>*/}
-                        {/*{this.props.module.title}*/}
-                    {/*</Link>*/}
+            <tr className={this.props.selected ? 'table bg-success' : ''}>
+                <td>
                     <a href="#" onClick={() => this.props.onModuleSelected(this.props.module)}>
                         {this.props.module.title}</a>
+                </td>
+                <td>
+                    <button onClick={() =>
+                    {this.props.edit(this.props.module)}}>
+                        <i className="fa fa-pencil"/>
+                    </button>
                     <button onClick={() =>
                     {this.props.delete(this.props.module.id)}}>
-                        DELETE</button>
-                    <button onClick={() =>
-                    {this.props.edit(this.props.module)}}>EDIT</button>
-                </li>
+                        <i className="fa fa-remove"/>
+                    </button>
+                </td>
 
-            </div>
+            </tr>
         )}
 }
 

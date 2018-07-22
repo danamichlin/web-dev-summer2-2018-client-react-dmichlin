@@ -23,6 +23,11 @@ class CourseEditor extends React.Component {
 
     componentDidMount() {
         this.selectCourse(this.props.match.params.courseId);
+        this.course = this.courseService.findCourseById(this.props.match.params.courseId)
+            .then((course) => {
+                this.course = course;
+                this.forceUpdate();
+            });
     }
 
     selectCourse(courseId) {
@@ -34,22 +39,25 @@ class CourseEditor extends React.Component {
         this.setState({module: module});
     }
 
+
     render() {
         return(
-        <div>
-            <h2>Editing course: {this.state.courseId}</h2>
-            <div className="row">
-                <div className="col-4">
-                    <ModuleList2 onModuleSelected={this.onModuleSelected}
-                                 courseId={this.props.match.params.courseId}/>
+            <div width='100%'>
+                {this.course && <div class="p-2 mb-1 bg-secondary text-white">
+                             Editing course: {this.course.title}</div>}
+                <div className="row">
+                    <div className="col-3">
+                        <ModuleList2 onModuleSelected={this.onModuleSelected}
+                                     selectedModule={this.state.module}
+                                     courseId={this.props.match.params.courseId}/>
 
-                </div>
-                <div className="col-8">
-                    <LessonTabs module={this.state.module}
-                                courseId={this.props.match.params.courseId}/>
+                    </div>
+                    <div className="col-9">
+                        <LessonTabs module={this.state.module}
+                                    courseId={this.props.match.params.courseId}/>
+                    </div>
                 </div>
             </div>
-        </div>
     );}
 }
 

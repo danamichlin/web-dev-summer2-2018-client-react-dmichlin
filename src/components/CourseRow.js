@@ -12,7 +12,6 @@ class CourseRow extends React.Component {
 
     render() {
         return (
-                <tbody>
                     <tr>
                         <td>
                         <Link to={`/course/${this.props.course.id}/edit`}>
@@ -21,13 +20,17 @@ class CourseRow extends React.Component {
                         <td>{this.props.course.created}</td>
                         <td>{this.props.course.modified}</td>
                         <td id={this.props.course.id}>
-                            <button onClick={() => this.props.deleteCourse(
-                                this.props.course.id)}>Delete</button>
                             <button onClick={() => this.props.editCourse(
-                                this.props.course)}>Edit</button>
+                                this.props.course)}>
+                                <i className="fa fa-pencil"/>
+                            </button>
+                            <button onClick={() => this.props.deleteCourse(
+                                this.props.course.id)}>
+                                <i className="fa fa-remove"/>
+                            </button>
                         </td>
                     </tr>
-            </tbody>
+
     )}}
 
 export default CourseRow;

@@ -20,9 +20,11 @@ export default class LessonTabs extends React.Component {
     createLesson(title) {
         var lesson = {title: title,
             moduleId: this.props.module.id};
-        this.lessonService.createLesson(this.props.courseId, this.props.module.id, lesson);
-        this.props.module.lessons.push(lesson);
-        this.forceUpdate();
+        this.lessonService.createLesson(this.props.courseId, this.props.module.id, lesson)
+            .then((actLesson) => {
+                this.props.module.lessons.push(actLesson);
+                this.forceUpdate();
+            })
     }
 
     selectLesson = (index) => {
@@ -32,20 +34,18 @@ export default class LessonTabs extends React.Component {
     }
 
     deleteLesson(lessonId) {
-        this.lessonService.deleteLesson(lessonId);
-        for (var i = 0; i < this.props.module.lessons.length; i++) {
-            if (this.props.module.lessons[i].id == lessonId) {
-                this.props.module.lessons.splice(i, 1);
-                break;
+        if (window.confirm("Are you sure you want to delete this lesson?")) {
+            this.lessonService.deleteLesson(lessonId);
+            for (var i = 0; i < this.props.module.lessons.length; i++) {
+                if (this.props.module.lessons[i].id == lessonId) {
+                    this.props.module.lessons.splice(i, 1);
+                    break;
+                }
             }
+            this.forceUpdate();
         }
-        this.forceUpdate();
+
     }
-
-
-
-
-
 
   render() {
     if (!this.props.module) {
@@ -59,6 +59,7 @@ export default class LessonTabs extends React.Component {
                   {this.props.module.lessons.map(
                       (lesson, i) => {
                           return (
+                              <li className='nav-item'>
                               <LessonTab lesson={lesson}
                                          onClick={() => this.selectLesson(i)}
                                   key={lesson.id} deleteLesson={this.deleteLesson}>
@@ -66,6 +67,7 @@ export default class LessonTabs extends React.Component {
                                   <a className="nav-link" href="#">{lesson.title}</a>&nbsp;&nbsp;
                                 </span>
                               </LessonTab>
+                              </li>
                           )
                       }
                   )}

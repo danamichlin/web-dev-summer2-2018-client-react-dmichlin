@@ -47,16 +47,9 @@ class ModuleListItem extends React.Component {
 class WhiteBoard extends React.Component {
     render() {
         return (
-            <div className="container-fluid">
-                <h1>Whiteboard</h1>
-
-                {/*<TopicPills/>*/}
-
-                {/*<LessonTabs/>*/}
-
-                {/*<ModuleList/>*/}
-
-                <div className="card-deck">
+            <div className="container-fluid" >
+                <div class="p-3 mb-2 bg-secondary text-white">Whiteboard</div>
+                <div>
                     <CourseManager/>
                 </div>
             </div>
