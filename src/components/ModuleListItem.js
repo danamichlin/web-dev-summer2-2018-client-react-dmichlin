@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
 class ModuleListItem extends React.Component {
 
@@ -21,7 +20,7 @@ class ModuleListItem extends React.Component {
                     </button>
                     <button onClick={() =>
                     {this.props.delete(this.props.module.id)}}>
-                        <i className="fa fa-remove"/>
+                        <i className="fa fa-trash"/>
                     </button>
                 </td>
 

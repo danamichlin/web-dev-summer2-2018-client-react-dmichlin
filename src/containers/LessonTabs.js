@@ -1,5 +1,5 @@
 import React from 'react'
-import LessonTab from '../components/LessonTab'
+import LessonEditor from './LessonEditor'
 import LessonService from '../services/LessonService'
 import LessonAddition from '../components/LessonAddition'
 
@@ -12,8 +12,11 @@ export default class LessonTabs extends React.Component {
 
         this.lessonService = LessonService.instance;
 
+        this.selectLesson = this.selectLesson.bind(this);
         this.deleteLesson = this.deleteLesson.bind(this);
         this.createLesson = this.createLesson.bind(this);
+        this.nameChanged = this.nameChanged.bind(this);
+
     }
 
 
@@ -28,9 +31,7 @@ export default class LessonTabs extends React.Component {
     }
 
     selectLesson = (index) => {
-        this.setState({
-                          selectedLessonIndex: index
-                      })
+        this.setState({selectedLessonIndex: index})
     }
 
     deleteLesson(lessonId) {
@@ -44,7 +45,10 @@ export default class LessonTabs extends React.Component {
             }
             this.forceUpdate();
         }
+    }
 
+    nameChanged() {
+        this.forceUpdate();
     }
 
   render() {
@@ -52,6 +56,7 @@ export default class LessonTabs extends React.Component {
       return <div>Please select Module</div>
     }
     else {
+        var hasLesson = this.state.selectedLessonIndex < this.props.module.lessons.length;
         return (
             <div>
               <h7>Lesson Tabs {this.props.module.lessons.length}</h7>
@@ -60,20 +65,27 @@ export default class LessonTabs extends React.Component {
                       (lesson, i) => {
                           return (
                               <li className='nav-item'>
-                              <LessonTab lesson={lesson}
-                                         onClick={() => this.selectLesson(i)}
-                                  key={lesson.id} deleteLesson={this.deleteLesson}>
-                                <span>
-                                  <a className="nav-link" href="#">{lesson.title}</a>&nbsp;&nbsp;
-                                </span>
-                              </LessonTab>
+                              {/*<LessonTab lesson={lesson}*/}
+                                         {/*onClick={() => this.selectLesson(i)}*/}
+                                  {/*key={lesson.id} deleteLesson={this.deleteLesson}>*/}
+
+                              {/*</LessonTab>*/}
+                                  <a className={i == this.state.selectedLessonIndex
+                                                ? "nav-link active"
+                                                : "nav-link"}
+                                     href="#"
+                                  onClick={() => this.selectLesson(i)}>{lesson.title}</a>&nbsp;&nbsp;
                               </li>
                           )
                       }
                   )}
                   <LessonAddition createLesson={this.createLesson}/>
               </ul>
-                {this.state.selectedLessonIndex}
+                {hasLesson && <LessonEditor
+                    lesson={this.props.module.lessons[this.state.selectedLessonIndex]}
+                    deleteLesson={this.deleteLesson}
+                    nameChanged={this.nameChanged}/>}
+                {!hasLesson && "Add lessons"}
                 {/*<TopicPills lesson={this.props.module.lessons[this.state.selectedLessonIndex]}/>*/}
             </div>
         )

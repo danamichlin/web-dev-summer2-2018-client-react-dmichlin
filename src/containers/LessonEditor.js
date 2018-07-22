@@ -1,8 +1,7 @@
 import React from 'react';
 import LessonService from '../services/LessonService'
-import { Link } from 'react-router-dom'
 
-class LessonTab extends React.Component {
+class LessonEditor extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,6 +13,13 @@ class LessonTab extends React.Component {
 
         this.setEditMode = this.setEditMode.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.lesson.id != prevProps.lesson.id) {
+            this.setState({editMode: false,
+                              title: this.props.lesson.title});
+        }
     }
 
     setEditMode(editMode) {
@@ -32,35 +38,41 @@ class LessonTab extends React.Component {
         this.props.lesson.title = this.state.title;
         this.lessonService.updateLesson(this.props.lesson.id, this.props.lesson);
         this.setEditMode(false);
+        this.props.nameChanged();
     }
+
+
 
 
 
     render() {
         if (this.state.editMode) {
             return (
-                <div>
+                <div class="p-3 mb-2 bg-info text-white">
                     <input onChange={(event) => this.titleChanged(event)} value={this.state.title}/>
-                    <button onClick={() => this.updateLesson()}>OK</button>
-                    <button onClick={() => this.setEditMode(false)}>CANCEL</button>
+                    <button onClick={() => this.updateLesson()}>
+                        <i className='fa fa-check'/>
+                    </button>
+                    <button onClick={() => this.setEditMode(false)}>
+                        <i className='fa fa-remove'/>
+                    </button>
                 </div>
             )
         }
         else {
             return (
                 // not edit mode (has edit + delete buttons, no input field)
-                <div>
-                    <a href="#">
+                    <div class="p-3 mb-2 bg-info text-white">
                         {/*// onClick={() => this.props.onLessonSelected(this.props.lesson)}>*/}
-                        {this.state.title}</a>
-                    <button onClick={() => {
-                        this.props.deleteLesson(this.props.lesson.id)
-                    }}>
-                        DELETE
-                    </button>
-                    <button onClick={() => this.setEditMode(true)}>EDIT</button>
+                        Editing Lesson: {this.state.title} &nbsp; &nbsp;
 
-                </div>
+                        <button onClick={() => this.setEditMode(true)}>
+                            <i className='fa fa-pencil'/>
+                        </button>
+                        <button onClick={() => {this.props.deleteLesson(this.props.lesson.id)}}>
+                            <i className='fa fa-trash'/>
+                        </button>
+                    </div>
             )
         }
     }
@@ -68,4 +80,4 @@ class LessonTab extends React.Component {
 
 
 
-export default LessonTab;
+export default LessonEditor;

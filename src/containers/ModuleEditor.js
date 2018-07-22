@@ -37,9 +37,9 @@ class ModuleEditor extends React.Component {
     render() {
         return (
             <div>
-                <h3>Module Editor</h3>
-                {this.state.courseId},
-                {this.state.moduleId}
+                {/*<h3>Module Editor</h3>*/}
+                {/*{this.state.courseId},*/}
+                {/*{this.state.moduleId}*/}
             </div>
 
     )}

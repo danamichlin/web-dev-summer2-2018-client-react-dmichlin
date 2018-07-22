@@ -40,8 +40,12 @@ export default class LessonAddition extends React.Component {
             return (
                 <div>
                     <input onChange={(event) => this.titleChanged(event)} value={this.state.title}/>
-                    <button onClick={this.addingLesson}>OK</button>
-                    <button onClick={() => this.setEditMode(false)}>CANCEL</button>
+                    <button onClick={this.addingLesson}>
+                        <i className='fa fa-check'/>
+                    </button>
+                    <button onClick={() => this.setEditMode(false)}>
+                        <i className='fa fa-remove'/>
+                    </button>
                 </div>
             )
         }
@@ -49,7 +53,9 @@ export default class LessonAddition extends React.Component {
             return (
                 // not edit mode (has edit + delete buttons, no input field)
                 <div>
-                    <button onClick={() => this.setEditMode(true)}>+</button>
+                    <button onClick={() => this.setEditMode(true)}>
+                        <i className='fa fa-plus'/>
+                    </button>
                 </div>
             )
         }
