@@ -22,7 +22,7 @@ class LessonService {
 
 
     createLesson(courseId, moduleId, lesson) {
-        var url = "http://localhost:8080/api/course/" + courseId + '/module/' + moduleId + '/lesson';
+        var url = URL + "/api/course/" + courseId + '/module/' + moduleId + '/lesson';
         return fetch(url, {
             body: JSON.stringify(lesson),
             headers: { 'Content-Type': 'application/json' },
@@ -33,7 +33,7 @@ class LessonService {
 
     deleteLesson(lessonId) {
         console.log(lessonId);
-        var url = 'http://localhost:8080/api/lesson/' + lessonId;
+        var url = URL + '/api/lesson/' + lessonId;
         return fetch(url, {
             method: 'delete'
         });
@@ -41,7 +41,7 @@ class LessonService {
 
 
     findAllLessonsForCourse(courseId) {
-        var url = 'http://localhost:8080/api/course/' + courseId + '/lesson';
+        var url = URL + '/api/course/' + courseId + '/lesson';
         return fetch(url)
             .then(function (response) {
                 return response.json();

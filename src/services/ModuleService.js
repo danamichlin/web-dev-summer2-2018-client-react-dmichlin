@@ -23,7 +23,7 @@ class ModuleService {
 
     createModule(courseId, module) {
         console.log(courseId);
-        var url = "http://localhost:8080/api/course/" + courseId + '/module';
+        var url = URL + "/api/course/" + courseId + '/module';
         return fetch(url, {
             body: JSON.stringify(module),
             headers: { 'Content-Type': 'application/json' },
@@ -34,7 +34,7 @@ class ModuleService {
 
     deleteModule(moduleId) {
         console.log(moduleId);
-        var url = 'http://localhost:8080/api/module/' + moduleId;
+        var url = URL + '/api/module/' + moduleId;
         return fetch(url, {
             method: 'delete'
         });
@@ -42,7 +42,7 @@ class ModuleService {
 
 
     findAllModulesForCourse(courseId) {
-        var url = 'http://localhost:8080/api/course/' + courseId + '/module';
+        var url = URL + '/api/course/' + courseId + '/module';
         return fetch(url)
             .then(function (response) {
                 return response.json();
