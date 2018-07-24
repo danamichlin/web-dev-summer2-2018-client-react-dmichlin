@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom'
 import HelloWorld from './hello'
 //import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import '../node_modules/font-awesome/css/font-awesome.min.css';
-import LessonTabs from './containers/LessonTabs'
+import LessonTabs from './containers/lessons/LessonTabs'
 import TopicPills from './TopicPills'
 import {BrowserRouter as Router}
     from 'react-router-dom'
 
 import CourseCard from './components/CourseCard'
-import CourseList from "./containers/CourseList";
+import CourseList from "./containers/courses/CourseList";
 //import ModuleList2 from "./containers/ModuleList2";
 import CourseManager from './containers/CourseManager';
 

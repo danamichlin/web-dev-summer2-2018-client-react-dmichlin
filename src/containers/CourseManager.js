@@ -1,6 +1,6 @@
-import CourseList from './CourseList';
-import CourseEditor from './CourseEditor';
-import ModuleEditor from './ModuleEditor';
+import CourseList from './courses/CourseList';
+import CourseEditor from './courses/CourseEditor';
+import ModuleEditor from './modules/ModuleEditor';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import React from 'react';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import LessonService from '../services/LessonService'
+import LessonService from '../../services/LessonService'
 
 class LessonEditor extends React.Component {
 

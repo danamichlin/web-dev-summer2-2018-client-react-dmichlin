@@ -1,7 +1,7 @@
 import React from 'react'
 import LessonEditor from './LessonEditor'
-import LessonService from '../services/LessonService'
-import LessonAddition from '../components/LessonAddition'
+import LessonService from '../../services/LessonService'
+import LessonAddition from '../../components/LessonAddition'
 
 export default class LessonTabs extends React.Component {
     constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
-import ModuleService from '../services/ModuleService';
-import ModuleListItem from '../components/ModuleListItem';
+import ModuleService from '../../services/ModuleService';
+import ModuleListItem from '../../components/ModuleListItem';
 import ModuleEditor from './ModuleEditor';
 
 import {BrowserRouter as Router, Route} from 'react-router-dom'
