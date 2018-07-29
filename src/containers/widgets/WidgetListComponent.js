@@ -5,8 +5,9 @@ import {WidgetType3} from './WidgetType3'
 import {WidgetType4} from './WidgetType4'
 import {HeadingWidget} from "./HeadingWidget";
 import {ListWidget} from "./ListWidget";
+import {VideoWidget} from "./VideoWidget";
 
-const WidgetListComponent = ({widgets, deleteWidget, createWidget, updateWidget}) =>
+export const WidgetListComponent = ({widgets, deleteWidget, createWidget, updateWidget}) =>
 {
     let widgetTitle;
     let widgetType;
@@ -31,6 +32,7 @@ const WidgetListComponent = ({widgets, deleteWidget, createWidget, updateWidget}
                             ref={node => widgetType = node}>
                         <option value="HEADING">Heading Widget</option>
                         <option value="LIST">List Widget</option>
+                        <option value="YOUTUBE">YouTubes Widget</option>
                         <option value="WT1">Widget Type 1</option>
                         <option value="WT2">Widget Type 2</option>
                         <option value="WT3">Widget Type 3</option>
@@ -54,6 +56,10 @@ const WidgetListComponent = ({widgets, deleteWidget, createWidget, updateWidget}
                             {widget.widgetType === 'LIST' &&
                              <ListWidget widget={widget}
                                             updateWidget={updateWidget}/>}
+
+                            {widget.widgetType === 'YOUTUBE' &&
+                             <VideoWidget widget={widget}
+                                         updateWidget={updateWidget}/>}
 
                             {widget.widgetType === 'WT1' &&
                              <WidgetType1 widget={widget}
