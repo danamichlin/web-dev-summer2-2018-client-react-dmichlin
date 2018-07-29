@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const WidgetType2 = ({widget, updateWidget}) => {
+export const WidgetType4 = ({widget, updateWidget}) => {
     let widgetType;
     return (
         <div>
-            <h3>Widgety Type 2 - {widget.title} - {widget.widgetType}</h3>
+            <h3>Widgety Type 4 - {widget.title} - {widget.widgetType}</h3>
             <select className="form-control"
                     ref={node => widgetType = node}
                     onChange={() => {
