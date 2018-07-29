@@ -1,17 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import HelloWorld from './hello'
-//import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-//import '../node_modules/font-awesome/css/font-awesome.min.css';
-import LessonTabs from './containers/lessons/LessonTabs'
-import TopicPills from './TopicPills'
-import {BrowserRouter as Router}
-    from 'react-router-dom'
-
-import CourseCard from './components/CourseCard'
-import CourseList from "./containers/courses/CourseList";
-//import ModuleList2 from "./containers/ModuleList2";
 import CourseManager from './containers/CourseManager';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {widgetReducer} from "./reducers/widgetReducer";
+
 
 class ModuleListItem extends React.Component {
     render() {
@@ -27,32 +20,20 @@ class ModuleListItem extends React.Component {
     }
 }
 
-// class ModuleList extends React.Component {
-//     render() {
-//         return (
-//             <div>
-//                 <h1>Module List</h1>
-//                 <ul className="list-group">
-//                     <ModuleListItem title="Module 1"/>
-//                     <ModuleListItem title="Module 2"/>
-//                     <ModuleListItem title="Module 3"/>
-//                     <ModuleListItem title="Module 4"/>
-//                 </ul>
-//             </div>
-//         )
-//     }
-// }
+let store = createStore(widgetReducer);
 
 
 class WhiteBoard extends React.Component {
     render() {
         return (
+            <Provider store={store}>
             <div className="container-fluid" >
                 <div class="p-3 mb-2 bg-secondary text-white">Whiteboard</div>
                 <div>
                     <CourseManager/>
                 </div>
             </div>
+            </Provider>
         )
     }
 }
