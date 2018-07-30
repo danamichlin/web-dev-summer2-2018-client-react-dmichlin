@@ -1,5 +1,6 @@
 import React from 'react';
 import LessonService from '../../services/LessonService'
+import WidgetListContainer from "../widgets/WidgetListContainer";
 
 class LessonEditor extends React.Component {
 
@@ -42,9 +43,6 @@ class LessonEditor extends React.Component {
     }
 
 
-
-
-
     render() {
         if (this.state.editMode) {
             return (
@@ -62,6 +60,7 @@ class LessonEditor extends React.Component {
         else {
             return (
                 // not edit mode (has edit + delete buttons, no input field)
+                <div>
                     <div class="p-3 mb-2 bg-info text-white">
                         {/*// onClick={() => this.props.onLessonSelected(this.props.lesson)}>*/}
                         Editing Lesson: {this.state.title} &nbsp; &nbsp;
@@ -73,6 +72,9 @@ class LessonEditor extends React.Component {
                             <i className='fa fa-trash'/>
                         </button>
                     </div>
+
+                    <WidgetListContainer/>
+                </div>
             )
         }
     }

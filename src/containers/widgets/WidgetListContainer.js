@@ -5,7 +5,7 @@ const stateToPropertyMapper = state => (
     {
         widgets: state.widgets
     }
-)
+);
 
 const dispatcherToPropertyMapper = dispatch => (
     {
@@ -20,9 +20,38 @@ const dispatcherToPropertyMapper = dispatch => (
         updateWidget: w => dispatch({
             type: 'UPDATE_WIDGET',
             widget: w
-        })
+        }),
+        saveWidgets: () => dispatch({
+            type: 'SAVE_WIDGETS'
+        }),
+        loadAllWidgets: () => {
+            fetch('http://localhost:8080/api/widget')
+                .then(response => response.json())
+                .then(widgets => dispatch({
+                    type: 'FIND_ALL_WIDGETS',
+                    widgets: widgets
+                }))
+        },
+        up: (widgetId) => {
+            dispatch({
+                type: 'UP',
+                widgetId: widgetId
+            })
+        },
+        down: (widgetId) => {
+            dispatch({
+                type: 'DOWN',
+                widgetId: widgetId
+            })
+        },
+        updateView: (showPreview) => {
+            dispatch({
+                type: 'PREVIEW',
+                showPreview: showPreview
+            })
+        }
     }
-)
+);
 
 
 const WidgetListContainer =

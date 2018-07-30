@@ -28,7 +28,7 @@ class WhiteBoard extends React.Component {
         return (
             <Provider store={store}>
             <div className="container-fluid" >
-                <div class="p-3 mb-2 bg-secondary text-white">Whiteboard</div>
+                <div className="p-3 mb-2 bg-secondary text-white">Whiteboard</div>
                 <div>
                     <CourseManager/>
                 </div>

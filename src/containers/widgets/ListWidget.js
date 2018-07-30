@@ -32,7 +32,7 @@ export const ListWidget = ({widget, updateWidget}) => {
 
             <h4>Preview</h4>
 
-            {!widget.ordered &&
+            {!widget.ordered && widget.listItems &&
              <ul>
                  {widget.listItems.split("\n").map((item, index) => (
                      <li key={index}>{item}</li>
@@ -40,7 +40,7 @@ export const ListWidget = ({widget, updateWidget}) => {
              </ul>
             }
 
-            {widget.ordered &&
+            {widget.ordered && widget.listItems &&
              <ol>
                  {widget.listItems.split("\n").map((item, index) => (
                      <li key={index}>{item}</li>

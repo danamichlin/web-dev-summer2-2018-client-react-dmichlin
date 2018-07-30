@@ -27,7 +27,7 @@ export const HeadingWidget = ({widget, updateWidget}) => {
                 id="size"
                 ref={node => size = node}
                 onChange={() => {
-                    widget.size = size.value;
+                    widget.size = parseInt(size.value);
                     updateWidget(widget);
                 }}>
             <option value="1">Heading 1</option>
