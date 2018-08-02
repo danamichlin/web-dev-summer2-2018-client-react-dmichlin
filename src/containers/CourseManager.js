@@ -18,7 +18,9 @@ class CourseManager extends React.Component {
                     <Route exact path="/course/:courseId/edit"
                            component={CourseEditor}>
                     </Route>
-                    <Route exact path="/widget"
+                    {/*<Route exact path="/course/:courseId/module/:moduleId/lesson/:lessonId"*/}
+                           {/*component={LessonEditor}*/}
+                    <Route exact path="/lesson/:lessonId/widget"
                            component={WidgetListContainer}>
                     </Route>
                     {/*<Link to="/widgets">Widgets</Link>*/}

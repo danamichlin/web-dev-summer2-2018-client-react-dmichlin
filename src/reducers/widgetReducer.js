@@ -32,14 +32,19 @@ export const widgetReducer = (
             return {
                 widgets: action.widgets
             };
-
+        case 'FIND_LESSON_WIDGETS':
+            return {
+                widgets: action.widgets
+            };
         case 'DELETE_WIDGET':
+            widgetService.deleteWidget(action.widgetId);
             return {
                 widgets: state.widgets.filter(
                     widget => widget.id !== action.widgetId
                 )
             };
         case 'CREATE_WIDGET':
+            widgetService.createWidget(action.widget);
             return {
                 widgets: [
                     action.widget,
@@ -59,29 +64,33 @@ export const widgetReducer = (
                 })
             };
         case 'SAVE_WIDGETS':
-            // fetch('http://localhost:3000/api/widget', {
-            //     method: 'post',
-            //     headers: {
-            //         'content-type': 'application/json'
-            //     },
-            //     body: JSON.stringify(state.widgets)
-            // });
-            widgetService.saveWidgets(state.widgets);
+            widgetService.saveWidgets(state.widgets, action.lessonId);
             return state;
         case 'UP' :
-            console.log(action.widgetId);
-            fromIndex = state.widgets.findIndex((widget) => widget.id === action.widgetId);
+            fromIndex = state.widgets.findIndex(widget => widget.id === action.widgetId);
             toIndex = fromIndex--;
-            state.widgets.splice(toIndex, 0, state.widgets.splice(fromIndex, 1)[0]);
-            let widgets = Object.assign(state.widgets);
-            return {
-                widgets: widgets
-            };
-            return state;
+            let state2 = JSON.parse(JSON.stringify(state));
+            state2.widgets.splice(toIndex, 0, state2.widgets.splice(fromIndex, 1)[0]);
+            return state2;
+            // console.log(action.widgetId);
+            // fromIndex = state.widgets.findIndex((widget) => widget.id === action.widgetId);
+            // toIndex = fromIndex--;
+            // state.widgets.splice(toIndex, 0, state.widgets.splice(fromIndex, 1)[0]);
+            // let widgets = Object.assign(state.widgets);
+            // return {
+            //     widgets: widgets
+            // };
+            //return state;
         case 'DOWN' :
-            fromIndex = state.widgets.findIndex((widget) => widget.id === action.widgetId);
+            fromIndex = state.widgets.findIndex(widget => widget.id === action.widgetId);
             toIndex = fromIndex++;
-            return state;
+            state2 = JSON.parse(JSON.stringify(state));
+            // state2 = Object.assign(state);
+            state2.widgets.splice(toIndex, 0, state2.widgets.splice(fromIndex, 1)[0]);
+            return state2;
+            // fromIndex = state.widgets.findIndex((widget) => widget.id === action.widgetId);
+            // toIndex = fromIndex++;
+            // return state;
         case 'PREVIEW' :
             return {
                 widgets: state.widgets.map(widget => {

@@ -1,11 +1,15 @@
 import {connect} from 'react-redux'
 import WidgetListComponent from './WidgetListComponent.js'
+import WidgetService from '../../services/WidgetService.js'
 
-const stateToPropertyMapper = state => (
+const stateToPropertyMapper = (state, ownProps) => (
     {
+        // widgets: ownProps.lesson.widgets
         widgets: state.widgets
     }
 );
+
+let widgetService = WidgetService.instance;
 
 const dispatcherToPropertyMapper = dispatch => (
     {
@@ -21,14 +25,24 @@ const dispatcherToPropertyMapper = dispatch => (
             type: 'UPDATE_WIDGET',
             widget: w
         }),
-        saveWidgets: () => dispatch({
-            type: 'SAVE_WIDGETS'
+        saveWidgets: (lessonId) => dispatch({
+            type: 'SAVE_WIDGETS',
+            lessonId: lessonId
         }),
         loadAllWidgets: () => {
             fetch('http://localhost:8080/api/widget')
                 .then(response => response.json())
                 .then(widgets => dispatch({
                     type: 'FIND_ALL_WIDGETS',
+                    widgets: widgets
+                }))
+        },
+        loadWidgetsByLessonId: lessonId => {
+            //fetch(`http://localhost:8080/api/lesson/${lessonId}/widget`)
+            return widgetService.loadWidgetsByLessonId(lessonId)
+                .then(response => response.json())
+                .then(widgets => dispatch({
+                    type: 'FIND_LESSON_WIDGETS',
                     widgets: widgets
                 }))
         },

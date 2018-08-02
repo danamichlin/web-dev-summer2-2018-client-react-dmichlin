@@ -73,7 +73,7 @@ class LessonEditor extends React.Component {
                         </button>
                     </div>
 
-                    <WidgetListContainer/>
+                    <WidgetListContainer lesson={this.props.lesson}/>
                 </div>
             )
         }

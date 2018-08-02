@@ -59,7 +59,7 @@ export default class LessonTabs extends React.Component {
         var hasLesson = this.state.selectedLessonIndex < this.props.module.lessons.length;
         return (
             <div>
-              <h7>Lesson Tabs {this.props.module.lessons.length}</h7>
+              <h6>Lesson Tabs {this.props.module.lessons.length}</h6>
               <ul className="nav nav-tabs">
                   {this.props.module.lessons.map(
                       (lesson, i) => {

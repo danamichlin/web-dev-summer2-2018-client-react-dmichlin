@@ -8,24 +8,43 @@ import {ListWidget} from "./ListWidget";
 import {VideoWidget} from "./VideoWidget";
 import {ParagraphWidget} from "./ParagraphWidget";
 import {LinkWidget} from "./LinkWidget";
+import {ImageWidget} from "./ImageWidget";
 
 class WidgetListComponent extends React.Component {
     constructor(props) {
         super(props);
-        let widgetTitle;
-        let widgetType;
-        this.props.loadAllWidgets();
+        //let widgetTitle;
+        //let widgetType;
+        //this.props.loadAllWidgets();
+        this.props.loadWidgetsByLessonId(props.lesson.id);
+
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.lesson.id !== prevProps.lesson.id) {
+            this.props.loadWidgetsByLessonId(this.props.lesson.id);
+        }
     }
 
     showPreview;
+    widgetTitle;
+    widgetType;
+    widgetTitleText;
 
     render() {
+        // let lessonWidgets = this.props.widgets.filter(widget =>
+        //      widget.lesson.id === this.props.lesson.id);
         return (
             <div>
-                <button className="btn btn-success float-right"
-                        onClick={this.props.saveWidgets}>
-                    SAVE
-                </button>
+
+                {!this.showPreview &&
+                 <button className="btn btn-success float-right"
+                         onClick={() => {
+                             this.props.saveWidgets(this.props.lesson.id);
+                         }}>
+                     SAVE
+                 </button>
+                }
 
                 <input type="checkbox"
                        checked={this.showPreview}
@@ -35,69 +54,100 @@ class WidgetListComponent extends React.Component {
                            this.props.updateView(this.showPreview);
                        }}/>Preview
 
-                <h1>Widget List ({this.props.widgets.length})</h1>
+                {!this.showPreview &&
+                 <h1>Widget List ({this.props.widgets.length})</h1>
+                }
 
                 <ul className="list-group">
-                    <li className="list-group-item">
-                        <input className="form-control" ref={node => this.widgetTitle = node}/>
-                        <button className="btn btn-primary"
-                                onClick={() => {
-                                    let widget={
-                                        title: this.widgetTitle.value,
-                                        widgetType: this.widgetType.value,
-                                        showPreview: this.showPreview
-                                    };
-                                    this.widgetTitle.value = '';
-                                    this.props.createWidget(widget)}}>
-                            Add Widget
-                        </button>
-                        <select className="form-control"
-                                ref={node => this.widgetType = node}>
-                            <option value="HEADING">Heading Widget</option>
-                            <option value="LIST">List Widget</option>
-                            <option value="VIDEO">Video Widget</option>
-                            <option value="PARAGRAPH">Paragraph Widget</option>
-                            <option value="LINK">Link Widget</option>
-                            <option value="WT3">Widget Type 3</option>
-                            <option value="WT4">Widget Type 4</option>
 
-                        </select>
-                    </li>
+                    {!this.showPreview &&
+                     <li className="list-group-item">
+                         <label className="form-control" htmlFor="newWidgetTitle">
+                             Widget Title
+                             <input className="form-control"
+                                    id="newWidgetTitle"
+                                    value={this.widgetTitleText}
+                                    ref={node => this.widgetTitle = node}
+                                    onChange={() => {
+                                        this.widgetTitleText = this.widgetTitle.value;
+                                    }}/>
+                         </label>
+
+                         <label className="form-control" htmlFor="newWidgetTypeSelection">
+                             Widget Type
+                             <select className="form-control"
+                                     ref={node => this.widgetType = node}
+                                     id="newWidgetTypeSelection">
+                                 <option value="HEADING">Heading Widget</option>
+                                 <option value="LIST">List Widget</option>
+                                 <option value="VIDEO">Video Widget</option>
+                                 <option value="PARAGRAPH">Paragraph Widget</option>
+                                 <option value="LINK">Link Widget</option>
+                                 <option value="IMAGE">Image Widget</option>
+                                 <option value="WT4">Widget Type 4</option>
+                             </select>
+                         </label>
+                         <button className="btn btn-primary"
+                                 onClick={() => {
+                                     let widget = {
+                                         lessonId: this.props.lesson.id,
+                                         title: this.widgetTitle.value,
+                                         widgetType: this.widgetType.value,
+                                         showPreview: this.showPreview,
+                                         size: 1
+                                     };
+                                     this.widgetTitle.value = '';
+                                     this.props.createWidget(widget);
+                                 }}>
+                             Add Widget
+                         </button>
+                     </li>
+                    }
+
+
                     {this.props.widgets.map((widget, index) =>
                         <li className='list-group-item'
                             key={index}>
-                            {widget.title} {widget.id} - {widget.widgetType}
+                            {/*{widget.title} {widget.id} - {widget.widgetType}*/}
 
-                            <button className='float-right btn btn-danger'
-                                    onClick={() => this.props.deleteWidget(widget.id)}>
-                                Delete
-                            </button>
+                            {!widget.showPreview &&
+                             <div>
+                                 <h3 className='float-left'>{widget.widgetType}: {widget.title}</h3>
 
-                            <button className='float-right btn btn-warning'
-                                    onClick={() => this.props.down(widget.id)}>
-                                <i className='fa fa-chevron-down'/>
-                            </button>
+                                 <button className='float-right btn btn-danger'
+                                         onClick={() => this.props.deleteWidget(widget.id)}>
+                                     Delete
+                                 </button>
 
-                            <button className='float-right btn btn-warning'
-                                    onClick={() => this.props.up(widget.id)}>
-                                <i className='fa fa-chevron-up'/>
-                            </button>
+                                 <button className='float-right btn btn-warning'
+                                         onClick={() => this.props.down(widget.id)}>
+                                     <i className='fa fa-chevron-down'/>
+                                 </button>
 
-                            <select className="form-control-sm float-right"
-                                    //ref={node => this.widgetType = node}
-                                    onChange={(e) => {
-                                        let w = {
-                                            id: widget.id,
-                                            widgetType: e.currentTarget.value
-                                        };
-                                        this.props.updateWidget(w)}}>
-                                <option value="HEADING">Heading Widget</option>
-                                <option value="PARAGRAPH">Paragraph Widget</option>
-                                <option value="LIST">List Widget</option>
-                                <option value="VIDEO">Video Widget</option>
-                                <option value="IMAGE">Image Widget</option>
-                                <option value="HYPERLINK">Link Widget</option>
-                            </select>
+                                 <button className='float-right btn btn-warning'
+                                         onClick={() => this.props.up(widget.id)}>
+                                     <i className='fa fa-chevron-up'/>
+                                 </button>
+
+                                 <select className="form-control-sm float-right"
+                                     //ref={node => this.widgetType = node}
+                                         onChange={(e) => {
+                                             let w = {
+                                                 id: widget.id,
+                                                 widgetType: e.currentTarget.value
+                                             };
+                                             this.props.updateWidget(w)
+                                         }}>
+                                     <option value="HEADING">Heading Widget</option>
+                                     <option value="PARAGRAPH">Paragraph Widget</option>
+                                     <option value="LIST">List Widget</option>
+                                     <option value="VIDEO">Video Widget</option>
+                                     <option value="IMAGE">Image Widget</option>
+                                     <option value="LINK">Link Widget</option>
+                                 </select>
+                             </div>
+                            }
+
 
 
                             <div>
@@ -121,8 +171,8 @@ class WidgetListComponent extends React.Component {
                                  <LinkWidget widget={widget}
                                               updateWidget={this.props.updateWidget}/>}
 
-                                {widget.widgetType === 'WT3' &&
-                                 <WidgetType3 widget={widget}
+                                {widget.widgetType === 'IMAGE' &&
+                                 <ImageWidget widget={widget}
                                               updateWidget={this.props.updateWidget}/>}
 
                                 {widget.widgetType === 'WT4' &&
